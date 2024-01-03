@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.pyc
+
+# Django
+*.pyc
+*.pyo
+*.pyd
+*.db
+__pycache__/
+media/
+static/
+
+# Vue.js
+/dist/
+/node_modules/
+*.log
+
+# Docker
+.dockerignore
+.docker/
+
+# Environment variables (customize as needed)
+.env
+
+# Editor/IDE specific files (customize as needed)
+.vscode/
+.idea/
+
+# Miscellaneous
+*.log
+*.pot
+*.pyo
+*.pyc
+*.class
+*.map
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python virtual environment
+venv/

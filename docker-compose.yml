@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fullcontact
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5433:5432"
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - staticvolume:/usr/share/nginx/html/static
+      
+  backend:
+    container_name: backend
+    build:
+      context: ./fc
+    volumes:
+      - staticvolume:/app/static
+      - ./fc/fcapi/migrations:/app/fcapi/migrations  # Mount host directory to container path
+      
+      
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - postgres
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/admin" ] 
+      interval: 120s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+  staticvolume:
+
+
