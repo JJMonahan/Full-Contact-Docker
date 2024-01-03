@@ -81,7 +81,7 @@ export default {
     },
     addNewItem() {
       // Implement the logic to add a new item to your database
-      window.location.href = "http://localhost/admin/fcapi/company/add/"
+      window.location.href = "/admin/fcapi/company/add/"
       //const newCompany = { id: this.companies.length + 1, name: 'New Company', /* other properties */ };
       //this.companies.push(newCompany);
       //this.filteredCompanies = [...this.companies]; // Update the filteredCompanies after adding a new item
