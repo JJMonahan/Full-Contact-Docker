@@ -92,7 +92,11 @@ export default {
     },
     addNewItem() {
       // Implement the logic to add a new item to your database
-      console.log('Add new item logic here');
+      window.location.href = "/admin/fcapi/job/add/"
+      //const newCompany = { id: this.companies.length + 1, name: 'New Company', /* other properties */ };
+      //this.companies.push(newCompany);
+      //this.filteredCompanies = [...this.companies]; // Update the filteredCompanies after adding a new item
+      //console.log('Add new item logic here');
     },
   },
 };
