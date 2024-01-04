@@ -43,8 +43,9 @@ export default {
   },
   methods: {
     async fetchContacts() {
+      const host = window.location.hostname;
       try {
-        const response = await fetch('http://localhost:8000/api/contacts');
+        const response = await fetch(`http://${host}:8000/api/contacts`);
         const data = await response.json();
         this.contacts = data.results;
       } catch (error) {
