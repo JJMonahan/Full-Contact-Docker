@@ -47,7 +47,7 @@ export default {
     async fetchCompaniesData() {
       try {
         const host = window.location.hostname;
-        const response = await this.$axios.get('http://${host}:8000/api/companies/');
+        const response = await this.$axios.get(`http://${host}:8000/api/companies/`);
         this.companies = response.data.results;
         this.filteredCompanies = [...this.companies]; // Initialize filteredCompanies with all companies
       } catch (error) {
