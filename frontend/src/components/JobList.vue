@@ -44,8 +44,9 @@ export default {
   },
   methods: {
     async fetchJobs() {
+      const host = window.location.hostname;
       try {
-        const response = await fetch('http://localhost:8000/api/jobs');
+        const response = await fetch(`http://${host}:8000/api/jobs`);
         const data = await response.json();
         this.jobs = data.results;
       } catch (error) {
