@@ -158,6 +158,9 @@ class Job(models.Model):
         self.updated = timezone.now()
         super(Job, self).save(*args, **kwargs)
 
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
 class Note(models.Model):
     PRIORITY_CHOICES = [
         ("0", "Unknown"),
@@ -179,13 +182,16 @@ class Note(models.Model):
     content = models.TextField()
     priority = models.CharField(max_length=50, choices=PRIORITY_CHOICES, default='0')
     source = models.CharField(max_length=50, choices=SOURCE_CHOICES, default='0')
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True, related_name='notes')
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=True, blank=True, related_name='notes')
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True, blank=True, related_name='notes')
+
+    # GenericForeignKey and GenericRelation setup
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default=None)
+    object_id = models.PositiveIntegerField(default=None)
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     def save(self, *args, **kwargs):
         self.last_update = timezone.now()
         super(Note, self).save(*args, **kwargs)
+
 
 
 class Log(models.Model):
