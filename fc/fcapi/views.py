@@ -1,7 +1,9 @@
+from django.apps import apps
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets
 from .models import Contact, Note, Role, Company, Job, Log
+from django.shortcuts import get_object_or_404
 from .serializers import (
     ContactSerializer,
     NoteSerializer,
@@ -16,8 +18,23 @@ class ContactViewSet(viewsets.ModelViewSet):
     serializer_class = ContactSerializer
 
 class NoteViewSet(viewsets.ModelViewSet):
-    queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+    def get_queryset(self):
+        model = self.request.query_params.get('model')
+        object_id = self.request.query_params.get('id')
+
+        if model and object_id:
+            # Use the Django apps module to dynamically get the model class
+            model_class = apps.get_model(app_label='fcapi', model_name=model)
+            # Use get_object_or_404 to get the specific object based on model and id
+            obj = get_object_or_404(model_class, id=object_id)
+            
+            # Filter notes based on the content type and object id
+            return Note.objects.filter(content_type__model=model, object_id=object_id)
+        else:
+            # If model or id is missing, return all notes
+            return Note.objects.all()
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()

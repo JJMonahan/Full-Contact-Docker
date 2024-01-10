@@ -32,7 +32,7 @@ router = DefaultRouter()
 
 # Register the viewsets with the router
 router.register(r'contacts', ContactViewSet)
-router.register(r'notes', NoteViewSet)
+router.register(r'notes', NoteViewSet, basename='note')
 router.register(r'roles', RoleViewSet)
 router.register(r'companies', CompanyViewSet)
 router.register(r'jobs', JobViewSet)
