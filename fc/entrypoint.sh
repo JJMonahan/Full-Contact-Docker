@@ -1,11 +1,11 @@
 #!/bin/sh
 
-echo "------------------ showmigrations -----------------------"
-python manage.py showmigrations
+#echo "------------------ showmigrations -----------------------"
+#python manage.py showmigrations
 echo "------------------ makemigrations -----------------------"
 python manage.py makemigrations
-echo "------------------ showmigrations -----------------------"
-python manage.py showmigrations
+#echo "------------------ showmigrations -----------------------"
+#python manage.py showmigrations
 echo "------------------ migrate ------------------------------"
 python manage.py migrate
 echo "------------------ showmigrations -----------------------"
